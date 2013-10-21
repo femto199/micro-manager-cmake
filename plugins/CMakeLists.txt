@@ -2,7 +2,7 @@ add_subdirectory(PixelCalibrator)
 add_subdirectory(IntelligentAcquisition)
 add_subdirectory(SlideExplorer)
 add_subdirectory(Recall)
-add_subdirectory(StageControl) # Issue with resource files
+add_subdirectory(StageControl)
 add_subdirectory(MultiCamera)
 add_subdirectory(SplitView)
 add_subdirectory(NewImageFlipper)

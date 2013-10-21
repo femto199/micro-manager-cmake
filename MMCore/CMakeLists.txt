@@ -29,8 +29,8 @@ target_link_libraries(
 )
 
 if(APPLE)
-    find_library( FRAMEWORK_CoreFoundation CoreFoundation )
-    find_library( FRAMEWORK_IOKit IOKit  )
+    find_library(FRAMEWORK_CoreFoundation CoreFoundation)
+    find_library(FRAMEWORK_IOKit IOKit)
     target_link_libraries(
         MMCore
         ${FRAMEWORK_CoreFoundation}
@@ -43,8 +43,12 @@ add_library(
     MMCore_static
     STATIC
     ${source_files} )
-set_target_properties(MMCore_static PROPERTIES POSITION_INDEPENDENT_CODE TRUE )
 
-install(TARGETS MMCore
-        DESTINATION ${IJ_PATH}/lib/micro-manager
-        COMPONENT MMCore)
+target_link_libraries(
+    MMCore_static
+    MMDevice
+    dl z
+    ${Boost_LIBRARIES}
+)
+
+set_target_properties(MMCore_static PROPERTIES POSITION_INDEPENDENT_CODE TRUE )

@@ -16,12 +16,23 @@ file(
     ${CMAKE_SOURCE_DIR}/mmstudio/src/org/json/*.java
 )
 
-set_source_files_properties(MMCoreJ.i PROPERTIES CPLUSPLUS ON)
-set(SWIG_MODULE_MMCoreJ_EXTRA_DEPS MMCore)
-swig_add_module(MMCoreJ_wrap java MMCoreJ.i)
-swig_link_libraries(MMCoreJ_wrap MMCore MMDevice)
+file(
+    GLOB_RECURSE
+    tagged_image_file
+    ${CMAKE_CURRENT_SOURCE_DIR}/TaggedImage.java
+)
 
-add_jar(MMCoreJ mmcorej/*.java ${json_source_files})
+set(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_BINARY_DIR}/mmcorej)
+
+set_source_files_properties(MMCoreJ.i PROPERTIES CPLUSPLUS ON)
+set(SWIG_MODULE_MMCoreJ_wrap_EXTRA_DEPS MMCore_static)
+swig_add_module(MMCoreJ_wrap java MMCoreJ.i)
+swig_link_libraries(MMCoreJ_wrap MMCore_static MMDevice ${JNI_LIBRARIES} ${JAVA_AWT_LIBRARY} ${JAVA_JVM_LIBRARY})
+
+set(CMAKE_JAVA_JAR_ENTRY_POINT ${CMAKE_CURRENT_BINARY_DIR})
+add_jar(MMCoreJ ${CMAKE_SWIG_OUTDIR}/*.java
+        ${json_source_files} ${tagged_image_file})
+add_dependencies(MMCoreJ MMCoreJ_wrap)
 
 # Installation directives (to use with make install)
 install(TARGETS MMCoreJ_wrap

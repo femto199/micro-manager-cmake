@@ -1,3 +1,14 @@
+# TODO
+# - better resource files: http://public.kitware.com/Bug/view.php?id=14500
+#     - StageControl (icons)
+#     - mmstudio (icons and plugins.config)
+# - Clojure support: http://public.kitware.com/Bug/view.php?id=14501
+#    - acqEngine
+#    - plugins/ClojureEditor
+#    - plugins/DataBrowser
+#    - plugins/SlideExplorer2
+#    - plugins/OMETiff
+
 cmake_minimum_required(VERSION 2.8)
 project(Micro-Manager)
 
@@ -39,7 +50,7 @@ endif()
 # add_subdirectory(DeviceKit)
 
 add_subdirectory(mmstudio)
-add_subdirectory(plugins)
+# add_subdirectory(plugins)
 add_subdirectory(acqEngine)
 # add_subdirectory(autofocus)
 
