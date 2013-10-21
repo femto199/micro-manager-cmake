@@ -1,7 +1,0 @@
-<project name="CRISP" default="jar">
-	<import file="../javapluginbuild.xml"/>
-
-	<path id="plugin.classpath">
-		<pathelement location="${mm.java.lib.jfreechart}"/>
-	</path>
-</project>

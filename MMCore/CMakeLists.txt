@@ -44,3 +44,7 @@ add_library(
     STATIC
     ${source_files} )
 set_target_properties(MMCore_static PROPERTIES POSITION_INDEPENDENT_CODE TRUE )
+
+install(TARGETS MMCore
+        DESTINATION ${IJ_PATH}/lib/micro-manager
+        COMPONENT MMCore)

@@ -66,7 +66,13 @@ message(STATUS "**********************************")
 install(FILES ${CMAKE_SOURCE_DIR}/bindist/any-platform/MMConfig_demo.cfg
         DESTINATION ${IJ_PATH}
         COMPONENT demo_config)
+
 install(FILES ${3RD_PARY_PUBLIC_PATH}/classext/bsh-2.0b4.jar
               ${3RD_PARY_PUBLIC_PATH}/classext/swingx-0.9.5.jar
         DESTINATION ${IJ_PATH}/plugins
         COMPONENT 3rd_party_jars)
+
+# Install startup scripts
+install(PROGRAMS startup_scripts/mm_start_linux.sh
+        DESTINATION ${IJ_PATH}
+        COMPONENT startup_scripts)
