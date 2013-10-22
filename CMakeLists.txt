@@ -137,7 +137,7 @@ set(CPACK_PACKAGE_CONTACT "www.micro-manager.org")
 set(CPACK_DEBIAN_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
 set(CPACK_DEBIAN_PACKAGE_NAME "micro-manager")
 set(CPACK_DEBIAN_PACKAGE_SECTION "science")
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libboost-date-time (>= 1.49), libboost-exception (>= 1.49), libboost-system (>= 1.49), libboost-thread (>= 1.49), openjdk-7-jre")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "openjdk-7-jre")
 
 # Add components to installer
 set(CPACK_COMPONENTS_ALL MMCoreJ MMCorePy mmstudio mmautofocus
@@ -174,10 +174,10 @@ if(UNIX)
     if(APPLE)
         set(CPACK_GENERATOR "BUNDLE")
     else()
-        set(CPACK_GENERATOR "TGZ")
+        set(CPACK_GENERATOR "DEB")
         if("${CPACK_GENERATOR}" STREQUAL "DEB")
             # TODO: add micro-manager.sh script to put in /usr/local/bin
-            set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local/micro-manager")
+            set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local/share/micro-manager")
         endif()
     endif()
 else()
