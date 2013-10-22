@@ -105,7 +105,6 @@ if(UNIX)
         install(PROGRAMS startup_scripts/mm_start_linux.sh
                 DESTINATION ./
                 COMPONENT startup_scripts)
-        endif()
     endif()
 else()
     # Add Windows startupt script here
@@ -183,6 +182,4 @@ else()
     set(CPACK_GENERATOR "NSIS")
 endif()
 
-
 include(CPack)
-
