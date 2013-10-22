@@ -41,7 +41,6 @@ if(USE_SWIG_BINDINGS)
 endif()
 
 add_subdirectory(DeviceAdapters)
-# add_subdirectory(DeviceKit)
 
 add_subdirectory(mmstudio)
 add_subdirectory(plugins)
@@ -54,6 +53,7 @@ add_subdirectory(scripts)
 # add_subdirectory(Test_Programs)
 # add_subdirectory(Tutorial)
 # add_subdirectory(doc)
+# add_subdirectory(DeviceKit)
 
 
 message(STATUS "**********************************")
