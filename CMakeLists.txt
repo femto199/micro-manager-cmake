@@ -43,9 +43,9 @@ endif()
 add_subdirectory(DeviceAdapters)
 
 add_subdirectory(mmstudio)
-add_subdirectory(plugins)
 add_subdirectory(acqEngine)
 add_subdirectory(autofocus)
+add_subdirectory(plugins)
 
 add_subdirectory(scripts)
 
@@ -72,8 +72,28 @@ install(FILES ${CMAKE_SOURCE_DIR}/bindist/any-platform/MMConfig_demo.cfg
         DESTINATION ${IJ_PATH}
         COMPONENT demo_config)
 
-install(FILES ${3RD_PARY_PUBLIC_PATH}/classext/bsh-2.0b4.jar
+install(FILES ${3RD_PARY_PUBLIC_PATH}/classext/AbsoluteLayout.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/bsh-2.0b4.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/clojure.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/clooj.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/commons-math-2.0.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/core.cache.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/core.memoize.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/data.json.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/gproto.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/JARVersionsAndSources.txt
+              ${3RD_PARY_PUBLIC_PATH}/classext/jcommon-1.0.16.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/jfreechart-1.0.13.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/loci-common.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/lwm.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/ome-xml.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/scifio.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/slf4j-api-1.7.1.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/substance.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/swing-layout-1.0.4.jar
               ${3RD_PARY_PUBLIC_PATH}/classext/swingx-0.9.5.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/trident.jar
+              ${3RD_PARY_PUBLIC_PATH}/classext/TSFProto.jar
         DESTINATION ${IJ_PATH}/plugins
         COMPONENT 3rd_party_jars)
 

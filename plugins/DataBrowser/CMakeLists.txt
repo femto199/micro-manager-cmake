@@ -26,13 +26,13 @@ add_custom_target(
     ${JAR_NAME} ALL
     DEPENDS ${GENERATED_JAR_PATH}
 )
-
+message(${MMJ__JAR_PATH})
 add_custom_command(
    OUTPUT  ${GENERATED_JAR_PATH}
    COMMAND ${CMAKE_COMMAND} -E make_directory ${CLOJURE_COMPILED_PATH}
    COMMAND ${Java_JAVA_EXECUTABLE}
            -server -classpath
-           .:${MMCoreJ_JAR_PATH}:${CLOJURE_JAR_PATH}:${IJ_PATH}/ij.jar:${MMJ__JAR_PATH}:${BSH_JAR_PATH}:${CLOJURE_SOURCE_PATH}:${CLOJURE_COMPILED_PATH}:${CLOJURE_CONTRIB_JAR_PATH}:${ACQENGINE_JAR_PATH}:${JSON_JAR_PATH}
+           .:${MMCoreJ_JAR_PATH}:${CLOJURE_JAR_PATH}:${IJ_PATH}/ij.jar:${MMJ__JAR_PATH}:${BSH_JAR_PATH}:${CLOJURE_SOURCE_PATH}:${CLOJURE_COMPILED_PATH}:${CLOJURE_CONTRIB_JAR_PATH}:${ACQENGINE_JAR_PATH}:${JSON_JAR_PATH}:
            -Djava.awt.headless=true
            -Dclojure.compile.path=${CLOJURE_COMPILED_PATH}
            -server clojure.lang.Compile

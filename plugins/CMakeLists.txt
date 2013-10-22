@@ -14,8 +14,7 @@ add_subdirectory(HCS)
 add_subdirectory(ClojureEditor)
 
 # Clojure dependant
-add_subdirectory(DataBrowser)
-
+# add_subdirectory(DataBrowser)
 
 # Not seen in old Makefile.am, outdated ?
 
