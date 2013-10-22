@@ -175,6 +175,7 @@ if(UNIX)
     else()
         set(CPACK_GENERATOR "TGZ")
         if("${CPACK_GENERATOR}" STREQUAL "DEB")
+            # TODO: add micro-manager.sh script to put in /usr/local/bin
             set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local/micro-manager")
         endif()
     endif()
