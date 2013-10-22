@@ -20,5 +20,5 @@ add_jar(Gaussian
                      MMCoreJ
                      MMJ_)
 
-install_jar(Gaussian ${IJ_PATH}/mmplugins
+install_jar(Gaussian ./mmplugins
             COMPONENT mmplugins)

@@ -20,5 +20,5 @@ add_jar(Big
                      MMCoreJ
                      MMJ_)
 
-install_jar(Big ${IJ_PATH}/mmplugins
+install_jar(Big ./mmplugins
             COMPONENT mmplugins)

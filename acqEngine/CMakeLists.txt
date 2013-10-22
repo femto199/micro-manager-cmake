@@ -41,5 +41,5 @@ add_custom_command(
 )
 
 install(FILES ${GENERATED_JAR_PATH}
-        DESTINATION ${IJ_PATH}/plugins/Micro-Manager
+        DESTINATION ./plugins/Micro-Manager
         COMPONENT acqEngine)

@@ -27,8 +27,8 @@ endif()
 
 # Installation directives (to use with make install)
 install(FILES ${CMAKE_BINARY_DIR}/MMCorePy_wrap/MMCorePy.py
-        DESTINATION ${IJ_PATH}/lib/micro-manager
+        DESTINATION ./lib/micro-manager
         COMPONENT MMCorePy)
 install(TARGETS _MMCorePy
-        DESTINATION ${IJ_PATH}/lib/micro-manager
+        DESTINATION ./lib/micro-manager
         COMPONENT MMCorePy)

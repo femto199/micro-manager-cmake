@@ -33,7 +33,7 @@ add_dependencies(MMCoreJ MMCoreJ_wrap)
 
 # Installation directives (to use with make install)
 install(TARGETS MMCoreJ_wrap
-        DESTINATION ${IJ_PATH}/lib/micro-manager
+        DESTINATION ./lib/micro-manager
         COMPONENT MMCoreJ)
-install_jar(MMCoreJ ${IJ_PATH}/plugins/Micro-Manager
+install_jar(MMCoreJ ./plugins/Micro-Manager
             COMPONENT MMCoreJ)

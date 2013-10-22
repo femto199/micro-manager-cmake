@@ -20,5 +20,5 @@ add_jar(SplitView
                      MMCoreJ
                      MMJ_)
 
-install_jar(SplitView ${IJ_PATH}/mmplugins
+install_jar(SplitView ./mmplugins
             COMPONENT mmplugins)

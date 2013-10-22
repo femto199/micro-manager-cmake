@@ -69,7 +69,7 @@ message(STATUS "**********************************")
 
 # Installation directives (to use with make install)
 install(FILES ${CMAKE_SOURCE_DIR}/bindist/any-platform/MMConfig_demo.cfg
-        DESTINATION ${IJ_PATH}
+        DESTINATION ./
         COMPONENT demo_config)
 
 install(FILES ${3RD_PARY_PUBLIC_PATH}/classext/AbsoluteLayout.jar
@@ -94,10 +94,95 @@ install(FILES ${3RD_PARY_PUBLIC_PATH}/classext/AbsoluteLayout.jar
               ${3RD_PARY_PUBLIC_PATH}/classext/swingx-0.9.5.jar
               ${3RD_PARY_PUBLIC_PATH}/classext/trident.jar
               ${3RD_PARY_PUBLIC_PATH}/classext/TSFProto.jar
-        DESTINATION ${IJ_PATH}/plugins
+        DESTINATION ./plugins
         COMPONENT 3rd_party_jars)
 
 # Install startup scripts
-install(PROGRAMS startup_scripts/mm_start_linux.sh
-        DESTINATION ${IJ_PATH}
-        COMPONENT startup_scripts)
+if(UNIX)
+    if(APPLE)
+        # Add OS X startupt script here
+    else()
+        install(PROGRAMS startup_scripts/mm_start_linux.sh
+                DESTINATION ./
+                COMPONENT startup_scripts)
+        endif()
+    endif()
+else()
+    # Add Windows startupt script here
+endif()
+
+
+# Instal ImageJ files
+install(DIRECTORY ${IJ_PATH}/
+        DESTINATION ./)
+
+# Installer generation
+
+set(CPACK_PACKAGE_NAME "Micro-Manager")
+set(CPACK_PACKAGE_VENDOR "www.micro-manager.org/")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "µManager is software for control of microscopes. ")
+set(CPACK_PACKAGE_VERSION ${APPLICATION_VERSION})
+set(CPACK_PACKAGE_VERSION_MAJOR ${APPLICATION_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${APPLICATION_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${APPLICATION_VERSION_PATCH})
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "Micro-Manager")
+set(CPACK_PACKAGE_ICON "")
+
+# NSIS related variable
+set(CPACK_NSIS_MUI_ICON "")
+set(CPACK_NSIS_MUI_UNIICON "")
+
+# Debian related variable
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "www.micro-manager.org")
+set(CPACK_PACKAGE_CONTACT "www.micro-manager.org")
+set(CPACK_DEBIAN_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
+set(CPACK_DEBIAN_PACKAGE_NAME "micro-manager")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "") # TODO
+
+# Add components to installer
+set(CPACK_COMPONENTS_ALL MMCoreJ MMCorePy mmstudio mmautofocus
+                         device_adaptaters acqEngine scripts
+                         startup_scripts 3rd_party_jars demo_config mmplugins)
+
+# Set components description
+# TODO
+set(CPACK_COMPONENT_MMCOREJ_DISPLAY_NAME "Java wrapper for MMCore lib")
+set(CPACK_COMPONENT_MMCOREPY_DISPLAY_NAME "Python wrapper for MMCore lib")
+set(CPACK_COMPONENT_MMSTUDIO_DISPLAY_NAME "ImageJ plugin: Micro Manager application")
+set(CPACK_COMPONENT_MMAUTOFOCUS_DISPLAY_NAME "Autofocus algorithms")
+set(CPACK_COMPONENT_DEVICE_ADAPTATERS_DISPLAY_NAME "Device adaptaters")
+set(CPACK_COMPONENT_ACQENGINE_DISPLAY_NAME "Acquisition engine")
+set(CPACK_COMPONENT_SCRIPTS_DISPLAY_NAME "Scripts")
+set(CPACK_COMPONENT_STARTUP_SCRIPT_DISPLAY_NAME "Startup scripts")
+set(CPACK_COMPONENT_3RD_PARTY_JARS_DISPLAY_NAME "Java libraries")
+set(CPACK_COMPONENT_DEMO_CONFIG_DISPLAY_NAME "Demo configuration")
+set(CPACK_COMPONENT_MMPLUGINS_DISPLAY_NAME "Micro-Manager plugins")
+
+# Set components dependencies
+# TODO
+ set(CPACK_COMPONENT_MMSTUDIO_DEPENDS MMCoreJ)
+
+# Set components in group
+# TODO
+set(CPACK_COMPONENT_MMSTUDIO_GROUP "Runtime")
+set(CPACK_COMPONENT_MMCOREJ_GROUP "Runtime")
+set(CPACK_COMPONENT_MMCOREPY_GROUP "Runtime")
+set(CPACK_COMPONENT_STARTUP_SCRIPT_GROUP "Runtime")
+
+# Add condition here to build NSIS installer in windows
+if(UNIX)
+    if(APPLE)
+        set(CPACK_GENERATOR "BUNDLE")
+    else()
+        set(CPACK_GENERATOR "TGZ")
+        if("${CPACK_GENERATOR}" STREQUAL "DEB")
+            set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local/micro-manager")
+        endif()
+    endif()
+else()
+    set(CPACK_GENERATOR "NSIS")
+endif()
+
+
+include(CPack)
+

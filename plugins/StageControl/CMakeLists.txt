@@ -27,5 +27,5 @@ add_jar(StageControl
                      MMCoreJ
                      MMJ_)
 
-install_jar(StageControl ${IJ_PATH}/mmplugins
+install_jar(StageControl ./mmplugins
             COMPONENT mmplugins)

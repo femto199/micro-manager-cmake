@@ -20,5 +20,5 @@ add_jar(Recall
                      MMCoreJ
                      MMJ_)
 
-install_jar(Recall ${IJ_PATH}/mmplugins
+install_jar(Recall ./mmplugins
             COMPONENT mmplugins)

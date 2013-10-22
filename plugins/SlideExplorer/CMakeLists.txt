@@ -21,5 +21,5 @@ add_jar(SlideExplorer
                      MMJ_
                      PixelCalibrator)
 
-install_jar(SlideExplorer ${IJ_PATH}/mmplugins
+install_jar(SlideExplorer ./mmplugins
             COMPONENT mmplugins)

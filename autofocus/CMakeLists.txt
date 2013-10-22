@@ -22,7 +22,7 @@ add_jar(MMAutofocus
                      ${MMCoreJ_JAR_PATH}
                      ${MMJ__JAR_PATH})
 
-install_jar(MMAutofocus ${IJ_PATH}/mmautofocus
+install_jar(MMAutofocus ./mmautofocus
             COMPONENT mmautofocus)
 
 # Autofocus Duo
@@ -34,7 +34,7 @@ add_jar(MMAutofocusDuo
                      ${MMCoreJ_JAR_PATH}
                      ${MMJ__JAR_PATH})
 
-install_jar(MMAutofocusDuo ${IJ_PATH}/mmautofocus
+install_jar(MMAutofocusDuo ./mmautofocus
             COMPONENT mmautofocus)
 
 # Autofocus TB
@@ -46,7 +46,7 @@ add_jar(MMAutofocusTB
                      ${MMCoreJ_JAR_PATH}
                      ${MMJ__JAR_PATH})
 
-install_jar(MMAutofocusTB ${IJ_PATH}/mmautofocus
+install_jar(MMAutofocusTB ./mmautofocus
             COMPONENT mmautofocus)
 
 # Oughta Focus
@@ -58,5 +58,5 @@ add_jar(MMOughtaFocus
                      ${MMCoreJ_JAR_PATH}
                      ${MMJ__JAR_PATH})
 
-install_jar(MMOughtaFocus ${IJ_PATH}/mmautofocus
+install_jar(MMOughtaFocus ./mmautofocus
             COMPONENT mmautofocus)

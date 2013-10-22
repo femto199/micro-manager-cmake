@@ -2,8 +2,8 @@
 file(
     GLOB_RECURSE
     script_files
-    *
+    *.bsh
 )
 install(FILES ${script_files}
-        DESTINATION ${IJ_PATH}/scripts
+        DESTINATION ./scripts
         COMPONENT scripts)

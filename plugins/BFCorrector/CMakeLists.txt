@@ -20,5 +20,5 @@ add_jar(BFCorrector
                      MMCoreJ
                      MMJ_)
 
-install_jar(BFCorrector ${IJ_PATH}/mmplugins
+install_jar(BFCorrector ./mmplugins
             COMPONENT mmplugins)

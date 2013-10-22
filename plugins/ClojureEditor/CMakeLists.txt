@@ -20,5 +20,5 @@ add_jar(ClojureEditor
                      MMCoreJ
                      MMJ_)
 
-install_jar(ClojureEditor ${IJ_PATH}/mmplugins
+install_jar(ClojureEditor ./mmplugins
             COMPONENT mmplugins)

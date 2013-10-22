@@ -20,5 +20,5 @@ add_jar(IntelligentAcquisition
                      MMCoreJ
                      MMJ_)
 
-install_jar(IntelligentAcquisition ${IJ_PATH}/mmplugins
+install_jar(IntelligentAcquisition ./mmplugins
             COMPONENT mmplugins)

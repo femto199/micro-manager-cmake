@@ -21,5 +21,5 @@ add_jar(NewImageFlipper
                      MMCoreJ
                      MMJ_)
 
-install_jar(NewImageFlipper ${IJ_PATH}/mmplugins
+install_jar(NewImageFlipper ./mmplugins
             COMPONENT mmplugins)

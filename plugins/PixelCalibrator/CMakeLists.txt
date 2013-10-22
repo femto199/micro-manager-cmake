@@ -20,5 +20,5 @@ add_jar(PixelCalibrator
                      MMCoreJ
                      MMJ_)
 
-install_jar(PixelCalibrator ${IJ_PATH}/mmplugins
+install_jar(PixelCalibrator ./mmplugins
             COMPONENT mmplugins)

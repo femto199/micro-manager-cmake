@@ -29,8 +29,8 @@ add_jar(MMJ_
                      ${IJ_PATH}/ij.jar
                      ${MMCoreJ_JAR_PATH})
 
-install_jar(MMJ_ ${IJ_PATH}/plugins/Micro-Manager
+install_jar(MMJ_ ./plugins/Micro-Manager
             COMPONENT mmstudio)
 install(FILES ${external_jars}
-        DESTINATION ${IJ_PATH}/plugins
+        DESTINATION ./plugins
         COMPONENT mmstudio)

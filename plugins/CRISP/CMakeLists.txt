@@ -20,5 +20,5 @@ add_jar(CRISP
                      MMCoreJ
                      MMJ_)
 
-install_jar(CRISP ${IJ_PATH}/mmplugins
+install_jar(CRISP ./mmplugins
             COMPONENT mmplugins)

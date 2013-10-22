@@ -46,5 +46,5 @@ add_custom_command(
 )
 
 install(FILES ${GENERATED_JAR_PATH}
-        DESTINATION ${IJ_PATH}/mmplugins
+        DESTINATION ./mmplugins
         COMPONENT acqEngine)

@@ -21,5 +21,5 @@ add_jar(HCS
                      MMCoreJ
                      MMJ_)
 
-install_jar(HCS ${IJ_PATH}/mmplugins
+install_jar(HCS ./mmplugins
             COMPONENT mmplugins)

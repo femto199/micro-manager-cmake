@@ -20,5 +20,5 @@ add_jar(MultiCamera
                      MMCoreJ
                      MMJ_)
 
-install_jar(MultiCamera ${IJ_PATH}/mmplugins
+install_jar(MultiCamera ./mmplugins
             COMPONENT mmplugins)

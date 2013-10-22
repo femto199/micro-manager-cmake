@@ -27,5 +27,5 @@ target_link_libraries(
 )
 
 install(TARGETS mmgr_dal_DemoCamera
-        DESTINATION ${IJ_PATH}/lib/micro-manager
+        DESTINATION ./lib/micro-manager
         COMPONENT device_adaptaters)
