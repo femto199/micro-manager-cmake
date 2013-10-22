@@ -119,7 +119,7 @@ install(DIRECTORY ${IJ_PATH}/
 
 set(CPACK_PACKAGE_NAME "Micro-Manager")
 set(CPACK_PACKAGE_VENDOR "www.micro-manager.org/")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "µManager is software for control of microscopes. ")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "µManager is software for control of microscopes.")
 set(CPACK_PACKAGE_VERSION ${APPLICATION_VERSION})
 set(CPACK_PACKAGE_VERSION_MAJOR ${APPLICATION_VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${APPLICATION_VERSION_MINOR})
@@ -136,7 +136,8 @@ set(CPACK_DEBIAN_PACKAGE_MAINTAINER "www.micro-manager.org")
 set(CPACK_PACKAGE_CONTACT "www.micro-manager.org")
 set(CPACK_DEBIAN_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
 set(CPACK_DEBIAN_PACKAGE_NAME "micro-manager")
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "") # TODO
+set(CPACK_DEBIAN_PACKAGE_SECTION "science")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libboost-date-time (>= 1.49), libboost-exception (>= 1.49), libboost-system (>= 1.49), libboost-thread (>= 1.49), openjdk-7-jre")
 
 # Add components to installer
 set(CPACK_COMPONENTS_ALL MMCoreJ MMCorePy mmstudio mmautofocus
