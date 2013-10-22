@@ -111,8 +111,8 @@ else()
     # Add Windows startupt script here
 endif()
 
-
 # Instal ImageJ files
+# TODO: add condition to not installer IJ, if IJ_PATH == CMAKE_INSTALL_PREFIX
 install(DIRECTORY ${IJ_PATH}/
         DESTINATION ./)
 
