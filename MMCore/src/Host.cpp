@@ -4,7 +4,7 @@
 // SUBSYSTEM:     MMCore
 //-----------------------------------------------------------------------------
 // DESCRIPTION:   Multi-platform implementation of some simple network facilities
-//              
+//
 // COPYRIGHT:     University of California, San Francisco, 2011,
 //
 // LICENSE:       This file is distributed under the "Lesser GPL" (LGPL) license.
@@ -21,13 +21,13 @@
 // AUTHOR:        Karl Hoover  karl.hoover@gmail.com 2011
 
 
-#include "Host.h"
+#include "MMCore/Host.h"
 
 #ifdef _WINDOWS
 #include <winsock2.h>
 #include "Iphlpapi.h"
 #include <stdio.h>
-#define snprintf _snprintf 
+#define snprintf _snprintf
 
 #endif //_WINDOWS
 

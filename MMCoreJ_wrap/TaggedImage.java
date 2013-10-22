@@ -1,3 +1,5 @@
+package mmcorej;
+
 import org.json.JSONObject;
 
  /*

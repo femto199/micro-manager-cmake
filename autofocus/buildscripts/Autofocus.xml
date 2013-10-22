@@ -1,4 +1,0 @@
-<project name="MMAutofocus" default="jar">
-	<property name="sourcefile" value="Autofocus.java"/>
-	<import file="autofocusbuild.xml"/>
-</project>

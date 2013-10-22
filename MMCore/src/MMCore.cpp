@@ -44,22 +44,22 @@
 //
 
 
-#include "CircularBuffer.h"
-#include "Compressor.h"
-#include "Configuration.h"
-#include "ConfigGroup.h"
-#include "CoreCallback.h"
-#include "CoreProperty.h"
-#include "CoreUtils.h"
-#include "FastLogger.h"
+#include "MMCore/CircularBuffer.h"
+#include "MMCore/Compressor.h"
+#include "MMCore/Configuration.h"
+#include "MMCore/ConfigGroup.h"
+#include "MMCore/CoreCallback.h"
+#include "MMCore/CoreProperty.h"
+#include "MMCore/CoreUtils.h"
+#include "MMCore/FastLogger.h"
 
-#include "Host.h"
-#include "MMCore.h"
-#include "MMEventCallback.h"
-#include "DeviceUtils.h"
-#include "DeviceThreads.h"
-#include "ModuleInterface.h"
-#include "ImageMetadata.h"
+#include "MMCore/Host.h"
+#include "MMCore/MMCore.h"
+#include "MMCore/MMEventCallback.h"
+#include "MMDevice/DeviceUtils.h"
+#include "MMDevice/DeviceThreads.h"
+#include "MMDevice/ModuleInterface.h"
+#include "MMDevice/ImageMetadata.h"
 #include <assert.h>
 #include <sstream>
 #include <algorithm>

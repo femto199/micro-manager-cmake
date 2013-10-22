@@ -18,9 +18,9 @@
 //                INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES.
 // CVS:           $Id$
 //
-#include "Configuration.h"
-#include "MMDevice.h"
-#include "Error.h"
+#include "MMCore/Configuration.h"
+#include "MMDevice/MMDevice.h"
+#include "MMCore/Error.h"
 #include <assert.h>
 #include <sstream>
 #include <string>

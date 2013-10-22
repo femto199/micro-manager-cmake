@@ -3,7 +3,7 @@
 // PROJECT:       Micro-Manager
 // SUBSYSTEM:     MMDevice - Device adapter kit
 //-----------------------------------------------------------------------------
-// DESCRIPTION:   This class implements the basic property mechanism in 
+// DESCRIPTION:   This class implements the basic property mechanism in
 //                Micro-Manager devices.
 // AUTHOR:        Nenad Amodaj, nenad@amodaj.com, 08/05/2005
 // COPYRIGHT:     University of California, San Francisco, 2006
@@ -23,7 +23,7 @@
 const int BUFSIZE = 60;
 #include <assert.h>
 #include <cstdio>
-#include "Property.h"
+#include "MMDevice/Property.h"
 using namespace std;
 
 #if WIN32
@@ -94,7 +94,7 @@ void MM::Property::SetSequenceable(long sequenceMaxSize)
 bool MM::StringProperty::Set(double val)
 {
    char buf[BUFSIZE];
-   snprintf(buf, BUFSIZE, "%.2g", val); 
+   snprintf(buf, BUFSIZE, "%.2g", val);
    value_ = buf;
    return true;
 }
@@ -102,7 +102,7 @@ bool MM::StringProperty::Set(double val)
 bool MM::StringProperty::Set(long val)
 {
    char buf[BUFSIZE];
-   snprintf(buf, BUFSIZE, "%ld", val); 
+   snprintf(buf, BUFSIZE, "%ld", val);
    value_ = buf;
    return true;
 }
@@ -230,7 +230,7 @@ bool MM::IntegerProperty::Get(long& lVal) const
 bool MM::IntegerProperty::Get(std::string& strVal) const
 {
    char pszBuf[BUFSIZE];
-   snprintf(pszBuf, BUFSIZE, "%ld", value_); 
+   snprintf(pszBuf, BUFSIZE, "%ld", value_);
    strVal = pszBuf;
    return true;
 }
@@ -307,7 +307,7 @@ vector<string> MM::PropertyCollection::GetNames() const
 
    return nameList;
 }
- 
+
 unsigned MM::PropertyCollection::GetSize() const
 {
    return (unsigned) properties_.size();
@@ -326,7 +326,7 @@ int MM::PropertyCollection::CreateProperty(const char* pszName, const char* pszV
    case MM::String:
          pProp = new MM::StringProperty();
       break;
-      
+
       case MM::Integer:
          pProp = new MM::IntegerProperty();
       break;

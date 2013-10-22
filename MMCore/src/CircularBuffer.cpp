@@ -23,10 +23,10 @@
 //
 // AUTHOR:        Nenad Amodaj, nenad@amodaj.com, 01/05/2007
 //
-#include "CircularBuffer.h"
-#include "CoreUtils.h"
-#include "DeviceUtils.h"
-#include "DeviceThreads.h"
+#include "MMCore/CircularBuffer.h"
+#include "MMCore/CoreUtils.h"
+#include "MMDevice/DeviceUtils.h"
+#include "MMDevice/DeviceThreads.h"
 #include "boost/date_time/posix_time/posix_time.hpp"
 #include <cstdio>
 

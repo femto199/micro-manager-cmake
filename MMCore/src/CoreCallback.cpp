@@ -28,10 +28,10 @@
 // CVS:           $Id: CoreCallback.h 2 2007-02-27 23:33:17Z nenad $
 //
 
-#include "CoreCallback.h"
-#include "CircularBuffer.h"
-#include "DeviceUtils.h"
-#include "DeviceThreads.h"
+#include "MMCore/CoreCallback.h"
+#include "MMCore/CircularBuffer.h"
+#include "MMDevice/DeviceUtils.h"
+#include "MMDevice/DeviceThreads.h"
 #include "boost/date_time/posix_time/posix_time.hpp"
 
 /**

@@ -6,10 +6,10 @@
 // DESCRIPTION:   The example implementation of the demo camera.
 //                Simulates generic digital camera and associated automated
 //                microscope devices and enables testing of the rest of the
-//                system without the need to connect to the actual hardware. 
-//                
+//                system without the need to connect to the actual hardware.
+//
 // AUTHOR:        Nenad Amodaj, nenad@amodaj.com, 06/08/2005
-//                
+//
 //                Karl Hoover (stuff such as programmable CCD size  & the various image processors)
 //                Arther Edelstein ( equipment error simulation)
 //
@@ -33,9 +33,9 @@
 #ifndef _DEMOCAMERA_H_
 #define _DEMOCAMERA_H_
 
-#include "../../MMDevice/DeviceBase.h"
-#include "../../MMDevice/ImgBuffer.h"
-#include "../../MMDevice/DeviceThreads.h"
+#include "MMDevice/DeviceBase.h"
+#include "MMDevice/ImgBuffer.h"
+#include "MMDevice/DeviceThreads.h"
 #include <string>
 #include <map>
 #include <algorithm>
@@ -67,7 +67,7 @@ public:
    // ---------
    int Initialize();
    int Shutdown() {return DEVICE_OK;};
-   void GetName(char* pName) const; 
+   void GetName(char* pName) const;
    bool Busy() { return busy_;} ;
    bool GenerateRandomError();
 
@@ -97,19 +97,19 @@ private:
 
 class MySequenceThread;
 
-class CDemoCamera : public CCameraBase<CDemoCamera>  
+class CDemoCamera : public CCameraBase<CDemoCamera>
 {
 public:
    CDemoCamera();
    ~CDemoCamera();
-  
+
    // MMDevice API
    // ------------
    int Initialize();
    int Shutdown();
-  
-   void GetName(char* name) const;      
-   
+
+   void GetName(char* name) const;
+
    // MMCamera API
    // ------------
    int SnapImage();
@@ -121,8 +121,8 @@ public:
    long GetImageBufferSize() const;
    double GetExposure() const;
    void SetExposure(double exp);
-   int SetROI(unsigned x, unsigned y, unsigned xSize, unsigned ySize); 
-   int GetROI(unsigned& x, unsigned& y, unsigned& xSize, unsigned& ySize); 
+   int SetROI(unsigned x, unsigned y, unsigned xSize, unsigned ySize);
+   int GetROI(unsigned& x, unsigned& y, unsigned& xSize, unsigned& ySize);
    int ClearROI();
    int PrepareSequenceAcqusition()
    {
@@ -137,37 +137,37 @@ public:
    int InsertImage();
    int ThreadRun(MM::MMTime startTime);
    bool IsCapturing();
-   void OnThreadExiting() throw(); 
+   void OnThreadExiting() throw();
    double GetNominalPixelSizeUm() const {return nominalPixelSizeUm_;}
    double GetPixelSizeUm() const {return nominalPixelSizeUm_ * GetBinning();}
    int GetBinning() const;
    int SetBinning(int bS);
-   int IsExposureSequenceable(bool& isSequenceable) const 
+   int IsExposureSequenceable(bool& isSequenceable) const
    {
       isSequenceable = isSequenceable_;
       return DEVICE_OK;
    }
-   int GetExposureSequenceMaxLength(long& nrEvents) 
+   int GetExposureSequenceMaxLength(long& nrEvents)
    {
       nrEvents = sequenceMaxLength_;
       return DEVICE_OK;
    }
-   int StartExposureSequence() 
+   int StartExposureSequence()
    {
       // may need thread lock
       sequenceRunning_ = true;
       return DEVICE_OK;
    }
-   int StopExposureSequence() 
+   int StopExposureSequence()
    {
       // may need thread lock
-      sequenceRunning_ = false; 
+      sequenceRunning_ = false;
       sequenceIndex_ = 0;
       return DEVICE_OK;
    }
-   // Remove all values in the sequence                                   
+   // Remove all values in the sequence
    int ClearExposureSequence();
-   // Add one value to the sequence                                       
+   // Add one value to the sequence
    int AddToExposureSequence(double exposureTime_ms);
    // Signal that we are done sending sequence values so that the adapter can send the whole sequence to the device
    int SendExposureSequence() const {
@@ -259,26 +259,26 @@ class MySequenceThread : public MMDeviceThreadBase
       void Suspend();
       bool IsSuspended();
       void Resume();
-      double GetIntervalMs(){return intervalMs_;}                               
-      void SetLength(long images) {numImages_ = images;}                        
+      double GetIntervalMs(){return intervalMs_;}
+      void SetLength(long images) {numImages_ = images;}
       long GetLength() const {return numImages_;}
-      long GetImageCounter(){return imageCounter_;}                             
-      MM::MMTime GetStartTime(){return startTime_;}                             
+      long GetImageCounter(){return imageCounter_;}
+      MM::MMTime GetStartTime(){return startTime_;}
       MM::MMTime GetActualDuration(){return actualDuration_;}
-   private:                                                                     
+   private:
       int svc(void) throw();
-      double intervalMs_;                                                       
-      long numImages_;                                                          
-      long imageCounter_;                                                       
-      bool stop_;                                                               
-      bool suspend_;                                                            
-      CDemoCamera* camera_;                                                     
-      MM::MMTime startTime_;                                                    
-      MM::MMTime actualDuration_;                                               
-      MM::MMTime lastFrameTime_;                                                
-      MMThreadLock stopLock_;                                                   
-      MMThreadLock suspendLock_;                                                
-}; 
+      double intervalMs_;
+      long numImages_;
+      long imageCounter_;
+      bool stop_;
+      bool suspend_;
+      CDemoCamera* camera_;
+      MM::MMTime startTime_;
+      MM::MMTime actualDuration_;
+      MM::MMTime lastFrameTime_;
+      MMThreadLock stopLock_;
+      MMThreadLock suspendLock_;
+};
 
 //////////////////////////////////////////////////////////////////////////////
 // CDemoFilterWheel class
@@ -290,12 +290,12 @@ class CDemoFilterWheel : public CStateDeviceBase<CDemoFilterWheel>
 public:
    CDemoFilterWheel();
    ~CDemoFilterWheel();
-  
+
    // MMDevice API
    // ------------
    int Initialize();
    int Shutdown();
-  
+
    void GetName(char* pszName) const;
    bool Busy();
    unsigned long GetNumberOfPositions()const {return numPos_;}
@@ -321,12 +321,12 @@ class CDemoLightPath : public CStateDeviceBase<CDemoLightPath>
 public:
    CDemoLightPath();
    ~CDemoLightPath();
-  
+
    // MMDevice API
    // ------------
    int Initialize();
    int Shutdown();
-  
+
    void GetName(char* pszName) const;
    bool Busy() {return busy_;}
    unsigned long GetNumberOfPositions()const {return numPos_;}
@@ -352,12 +352,12 @@ class CDemoObjectiveTurret : public CStateDeviceBase<CDemoObjectiveTurret>
 public:
    CDemoObjectiveTurret();
    ~CDemoObjectiveTurret();
-  
+
    // MMDevice API
    // ------------
    int Initialize();
    int Shutdown();
-  
+
    void GetName(char* pszName) const ;
    bool Busy() {return busy_;}
    unsigned long GetNumberOfPositions()const {return numPos_;}
@@ -388,12 +388,12 @@ class CDemoStateDevice : public CStateDeviceBase<CDemoStateDevice>
 public:
    CDemoStateDevice();
    ~CDemoStateDevice();
-  
+
    // MMDevice API
    // ------------
    int Initialize();
    int Shutdown();
-  
+
    void GetName(char* pszName) const;
    bool Busy();
    unsigned long GetNumberOfPositions()const {return numPos_;}
@@ -427,18 +427,18 @@ public:
 
    int Initialize();
    int Shutdown();
-     
+
    // Stage API
    int SetPositionUm(double pos);
    int GetPositionUm(double& pos) {pos = pos_um_; LogMessage("Reporting position", true); return DEVICE_OK;}
    double GetStepSize() {return stepSize_um_;}
-   int SetPositionSteps(long steps) 
+   int SetPositionSteps(long steps)
    {
       DemoHub* pHub = static_cast<DemoHub*>(GetParentHub());
       if (pHub && pHub->GenerateRandomError())
          return SIMULATED_ERROR;
 
-      pos_um_ = steps * stepSize_um_; 
+      pos_um_ = steps * stepSize_um_;
       return  OnStagePositionChanged(pos_um_);
    }
    int GetPositionSteps(long& steps)
@@ -481,17 +481,17 @@ public:
       isSequenceable = sequenceable_;
       return DEVICE_OK;
    }
-   int GetStageSequenceMaxLength(long& nrEvents) const 
+   int GetStageSequenceMaxLength(long& nrEvents) const
    {
-      nrEvents = 2000; 
+      nrEvents = 2000;
       return DEVICE_OK;
    }
-   int StartStageSequence() 
+   int StartStageSequence()
    {
       return DEVICE_OK;
    }
-   int StopStageSequence() 
-   {  
+   int StopStageSequence()
+   {
       return DEVICE_OK;
    }
    int ClearStageSequence() {return DEVICE_OK;}
@@ -525,11 +525,11 @@ public:
 
    int Initialize();
    int Shutdown();
-     
+
    // XYStage API
    /* Note that only the Set/Get PositionStep functions are implemented in the adapter
     * It is best not to override the Set/Get PositionUm functions in DeviceBase.h, since
-    * those implement corrections based on whether or not X and Y directionality should be 
+    * those implement corrections based on whether or not X and Y directionality should be
     * mirrored and based on a user defined origin
     */
 
@@ -572,17 +572,17 @@ public:
       y = (long)(posY_um_ / stepSize_um_);
       return DEVICE_OK;
    }
-   int SetRelativePositionSteps(long x, long y)                                                           
-   {                                                                                                      
+   int SetRelativePositionSteps(long x, long y)
+   {
       DemoHub* pHub = static_cast<DemoHub*>(GetParentHub());
       if (pHub && pHub->GenerateRandomError())
          return SIMULATED_ERROR;
 
-      long xSteps, ySteps;                                                                                
-      GetPositionSteps(xSteps, ySteps);                                                   
+      long xSteps, ySteps;
+      GetPositionSteps(xSteps, ySteps);
 
-      return this->SetPositionSteps(xSteps+x, ySteps+y);                                                  
-   } 
+      return this->SetPositionSteps(xSteps+x, ySteps+y);
+   }
    virtual int Home()
    {
       DemoHub* pHub = static_cast<DemoHub*>(GetParentHub());
@@ -600,9 +600,9 @@ public:
       return DEVICE_OK;
    }
 
-   /* This sets the 0,0 position of the adapter to the current position.  
+   /* This sets the 0,0 position of the adapter to the current position.
     * If possible, the stage controller itself should also be set to 0,0
-    * Note that this differs form the function SetAdapterOrigin(), which 
+    * Note that this differs form the function SetAdapterOrigin(), which
     * sets the coordinate system used by the adapter
     * to values different from the system used by the stage controller
     */
@@ -690,7 +690,7 @@ public:
    DemoShutter() : state_(false), initialized_(false), changedTime_(0.0)
    {
       EnableDelay(); // signals that the dealy setting will be used
-      
+
       // parent ID display
       CreateHubIDProperty();
    }
@@ -752,7 +752,7 @@ public:
 
    int Shutdown() {return DEVICE_OK;}
    void GetName(char* name) const;
-   int SetGateOpen(bool open); 
+   int SetGateOpen(bool open);
    int GetGateOpen(bool& open);
    int SetSignal(double volts);
    int GetSignal(double& volts);
@@ -777,7 +777,7 @@ public:
       isSequenceable = true;
       return DEVICE_OK;
    }
-   int GetDASequenceMaxLength(long& nrEvents) const 
+   int GetDASequenceMaxLength(long& nrEvents) const
    {
       DemoHub* pHub = static_cast<DemoHub*>(GetParentHub());
       if (pHub && pHub->GenerateRandomError())
@@ -800,7 +800,7 @@ public:
       DemoHub* pHub = static_cast<DemoHub*>(GetParentHub());
       if (pHub && pHub->GenerateRandomError())
          return SIMULATED_ERROR;
-   
+
       (const_cast<DemoDA *>(this))->SetSequenceStateOff();
       return DEVICE_OK;
    }
@@ -889,7 +889,7 @@ public:
 
    bool Busy(void) { return busy_;};
 
-    // really primative image transpose algorithm which will work fine for non-square images... 
+    // really primative image transpose algorithm which will work fine for non-square images...
    template <typename PixelType> int TransposeRectangleOutOfPlace( PixelType* pI, unsigned int width, unsigned int height)
    {
       int ret = DEVICE_OK;
@@ -924,9 +924,9 @@ public:
       return ret;
    }
 
-   
-   template <typename PixelType> void TransposeSquareInPlace( PixelType* pI, unsigned int dim) 
-   { 
+
+   template <typename PixelType> void TransposeSquareInPlace( PixelType* pI, unsigned int dim)
+   {
       PixelType tmp;
       for( unsigned long ix = 0; ix < dim; ++ix)
       {
@@ -934,7 +934,7 @@ public:
          {
             tmp = pI[iy*dim + ix];
             pI[iy*dim +ix] = pI[ix*dim + iy];
-            pI[ix*dim +iy] = tmp; 
+            pI[ix*dim +iy] = tmp;
          }
       }
 
@@ -973,7 +973,7 @@ public:
    int Initialize();
    bool Busy(void) { return busy_;};
 
-    // 
+    //
    template <typename PixelType> int Flip( PixelType* pI, unsigned int width, unsigned int height)
    {
       PixelType tmp;
@@ -1164,7 +1164,7 @@ private:
    MM::MMTime performanceTiming_;
    void*  pSmoothedIm_;
    unsigned long sizeOfSmoothedIm_;
-   
+
 
 
 };
@@ -1179,16 +1179,16 @@ private:
 class DemoAutoFocus : public CAutoFocusBase<DemoAutoFocus>
 {
 public:
-   DemoAutoFocus() : 
-      running_(false), 
-      busy_(false), 
-      initialized_(false)  
+   DemoAutoFocus() :
+      running_(false),
+      busy_(false),
+      initialized_(false)
       {
          CreateHubIDProperty();
       }
 
    ~DemoAutoFocus() {}
-      
+
    // MMDevice API
    bool Busy() {return busy_;}
    void GetName(char* pszName) const;

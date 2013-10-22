@@ -34,9 +34,9 @@
    #include <dirent.h>
 #endif // WIN32
 
-#include "ModuleInterface.h"
-#include "Error.h"
-#include "PluginManager.h"
+#include "MMDevice/ModuleInterface.h"
+#include "MMCore/Error.h"
+#include "MMCore/PluginManager.h"
 
 #include <assert.h>
 #include <sstream>

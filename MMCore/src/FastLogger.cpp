@@ -34,9 +34,9 @@
 #define SIZE_MAX (std::numeric_limits<std::size_t>::max())
 #endif
 
-#include "FastLogger.h"
-#include "CoreUtils.h"
-#include "DeviceUtils.h"
+#include "MMCore/FastLogger.h"
+#include "MMCore/CoreUtils.h"
+#include "MMDevice/DeviceUtils.h"
 #include "boost/thread/thread.hpp"
 #include "boost/interprocess/detail/os_thread_functions.hpp"
 #include "boost/version.hpp"

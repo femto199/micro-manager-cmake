@@ -18,7 +18,7 @@
 //                INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES.
 // CVS:           $Id$
 //
-#include "DeviceUtils.h"
+#include "MMDevice/DeviceUtils.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -27,7 +27,7 @@
 #ifdef WIN32
    #define WIN32_LEAN_AND_MEAN
    #include <windows.h>
-   #define snprintf _snprintf 
+   #define snprintf _snprintf
 #pragma warning(disable : 4996)
 #else
    #include <unistd.h>
@@ -64,7 +64,7 @@ unsigned CDeviceUtils::GetMaxStringLength()
 const char* CDeviceUtils::ConvertToString(long lnVal)
 {
    // return ltoa(lnVal, m_pszBuffer, 10);
-   snprintf(m_pszBuffer, MM::MaxStrLength-1, "%ld", lnVal); 
+   snprintf(m_pszBuffer, MM::MaxStrLength-1, "%ld", lnVal);
    return m_pszBuffer;
 }
 
@@ -82,7 +82,7 @@ const char* CDeviceUtils::ConvertToString(int intVal)
 const char* CDeviceUtils::ConvertToString(double dVal)
 {
    //return _gcvt(dVal, 12, m_pszBuffer);
-   snprintf(m_pszBuffer, MM::MaxStrLength-1, "%.2f", dVal); 
+   snprintf(m_pszBuffer, MM::MaxStrLength-1, "%.2f", dVal);
    return m_pszBuffer;
 }
 
@@ -91,7 +91,7 @@ const char* CDeviceUtils::ConvertToString(double dVal)
  */
 const char* CDeviceUtils::ConvertToString(bool val)
 {
-   snprintf(m_pszBuffer, MM::MaxStrLength-1, "%s", val ? "1" : "0"); 
+   snprintf(m_pszBuffer, MM::MaxStrLength-1, "%s", val ? "1" : "0");
    return m_pszBuffer;
 }
 
@@ -184,28 +184,28 @@ bool CDeviceUtils::CheckEnvironment(std::string env)
 
 
 #ifdef _WINDOWS
- 
+
 int gettimeofday(struct timeval *tv, struct timezone *tz)
 {
   FILETIME ft;
   unsigned __int64 tmpres = 0;
   static int tzflag;
- 
+
   if (NULL != tv)
   {
     GetSystemTimeAsFileTime(&ft);
- 
+
     tmpres |= ft.dwHighDateTime;
     tmpres <<= 32;
     tmpres |= ft.dwLowDateTime;
- 
+
     /*converting file time to unix epoch*/
-    tmpres -= DELTA_EPOCH_IN_MICROSECS; 
+    tmpres -= DELTA_EPOCH_IN_MICROSECS;
     tmpres /= 10;  /*convert into microseconds*/
     tv->tv_sec = (long)(tmpres / 1000000UL);
     tv->tv_usec = (long)(tmpres % 1000000UL);
   }
- 
+
   if (NULL != tz)
   {
     if (!tzflag)
@@ -216,7 +216,7 @@ int gettimeofday(struct timeval *tv, struct timezone *tz)
     tz->tz_minuteswest = _timezone / 60;
     tz->tz_dsttime = _daylight;
   }
- 
+
   return 0;
 }
 

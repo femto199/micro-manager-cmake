@@ -11,6 +11,13 @@ add_subdirectory(CRISP)
 add_subdirectory(BFCorrector)
 add_subdirectory(Gaussian)
 add_subdirectory(HCS)
+add_subdirectory(ClojureEditor)
+
+# Clojure dependant
+add_subdirectory(DataBrowser)
+
+
+# Not seen in old Makefile.am, outdated ?
 
 # add_subdirectory(Bleach)
 # add_subdirectory(DLLAutoReloader)
@@ -21,9 +28,5 @@ add_subdirectory(HCS)
 # add_subdirectory(Projector)
 # add_subdirectory(Tracker)
 # add_subdirectory(TwoPhoton)
-
-# Clojure dependant
-# add_subdirectory(ClojureEditor)
-# add_subdirectory(DataBrowser)
 # add_subdirectory(SlideExplorer2)
 # add_subdirectory(OMETiff)

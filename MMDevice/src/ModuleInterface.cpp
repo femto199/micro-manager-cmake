@@ -23,11 +23,11 @@
 // CVS:           $Id$
 //
 #define _CRT_SECURE_NO_DEPRECATE
-#include "ModuleInterface.h"
+#include "MMDevice/ModuleInterface.h"
 #include <vector>
 #include <string>
 
-typedef std::pair<std::string, std::string> DeviceInfo; 
+typedef std::pair<std::string, std::string> DeviceInfo;
 std::vector<DeviceInfo> g_availableDevices;
 
 int FindDeviceIndex(const char* deviceName)
@@ -41,12 +41,12 @@ int FindDeviceIndex(const char* deviceName)
 
 MODULE_API long GetModuleVersion()
 {
-   return MODULE_INTERFACE_VERSION;   
+   return MODULE_INTERFACE_VERSION;
 }
 
 MODULE_API long GetDeviceInterfaceVersion()
 {
-   return DEVICE_INTERFACE_VERSION;   
+   return DEVICE_INTERFACE_VERSION;
 }
 
 MODULE_API unsigned GetNumberOfDevices()
@@ -58,7 +58,7 @@ MODULE_API bool GetDeviceName(unsigned deviceIndex, char* name, unsigned bufLen)
 {
    if (deviceIndex >= g_availableDevices.size())
       return false;
-   
+
    if (g_availableDevices[deviceIndex].first.length() >= bufLen)
       return false; // buffer too small, can't truncate the name
 
@@ -88,7 +88,7 @@ void AddAvailableDeviceName(const char* name, const char* descr)
          return; // already there
 
    // add to the list
-   g_availableDevices.push_back(std::make_pair(name, descr));   
+   g_availableDevices.push_back(std::make_pair(name, descr));
 }
 
 unsigned GetNumberOfDevicesInternal()

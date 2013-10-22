@@ -18,7 +18,7 @@
 //
 // NOTE:          Imported from ADVI for use in Micro-Manager
 ///////////////////////////////////////////////////////////////////////////////
-#include "ImgBuffer.h"
+#include "MMDevice/ImgBuffer.h"
 #include <math.h>
 #include <assert.h>
 using namespace std;
@@ -42,7 +42,7 @@ ImgBuffer::ImgBuffer() :
 {
 }
 
-ImgBuffer::ImgBuffer(const ImgBuffer& right)                
+ImgBuffer::ImgBuffer(const ImgBuffer& right)
 {
    pixels_ = 0;
    *this = right;
@@ -80,7 +80,7 @@ bool ImgBuffer::Compatible(const ImgBuffer& img) const
          Width() != img.Width() ||
          Depth() != img.Depth())
          return false;
-   
+
    return true;
 }
 

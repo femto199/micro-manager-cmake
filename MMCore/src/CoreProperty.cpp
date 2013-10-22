@@ -24,10 +24,10 @@
 // CVS:           $Id$
 //
 
-#include "CoreProperty.h"
-#include "MMCore.h"
-#include "Error.h"
-#include "DeviceUtils.h"
+#include "MMCore/CoreProperty.h"
+#include "MMCore/MMCore.h"
+#include "MMCore/Error.h"
+#include "MMDevice/DeviceUtils.h"
 #include <assert.h>
 #include <stdlib.h>
 using namespace std;
