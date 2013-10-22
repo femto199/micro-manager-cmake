@@ -48,7 +48,7 @@ using namespace std;
 #include <boost/algorithm/string.hpp>
 
 #ifdef linux
-#define LIB_NAME_SUFFIX ".so.0"
+#define LIB_NAME_SUFFIX ".so"
 #else
 #define LIB_NAME_SUFFIX ""
 #endif

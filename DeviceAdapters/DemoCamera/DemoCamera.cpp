@@ -6,8 +6,8 @@
 // DESCRIPTION:   The example implementation of the demo camera.
 //                Simulates generic digital camera and associated automated
 //                microscope devices and enables testing of the rest of the
-//                system without the need to connect to the actual hardware. 
-//                
+//                system without the need to connect to the actual hardware.
+//
 // AUTHOR:        Nenad Amodaj, nenad@amodaj.com, 06/08/2005
 //
 // COPYRIGHT:     University of California, San Francisco, 2006
@@ -28,8 +28,8 @@
 #include <cstdio>
 #include <string>
 #include <math.h>
-#include "../../MMDevice/ModuleInterface.h"
-#include "../../MMCore/Error.h"
+#include "MMDevice/ModuleInterface.h"
+#include "MMCore/Error.h"
 #include <sstream>
 #include <algorithm>
 #include "WriteCompactTiffRGB.h"
@@ -67,8 +67,8 @@ const char* g_PixelType_32bit = "32bit";  // floating point greyscale
 
 // windows DLL entry code
 #ifdef WIN32
-BOOL APIENTRY DllMain( HANDLE /*hModule*/, 
-                      DWORD  ul_reason_for_call, 
+BOOL APIENTRY DllMain( HANDLE /*hModule*/,
+                      DWORD  ul_reason_for_call,
                       LPVOID /*lpReserved*/
                       )
 {
@@ -95,7 +95,7 @@ BOOL APIENTRY DllMain( HANDLE /*hModule*/,
 /**
  * List all suppoerted hardware devices here
  * Do not discover devices at runtime.  To avoid warnings about missing DLLs, Micro-Manager
- * maintains a list of supported device (MMDeviceList.txt).  This list is generated using 
+ * maintains a list of supported device (MMDeviceList.txt).  This list is generated using
  * information supplied by this function, so runtime discovery will create problems.
  */
 MODULE_API void InitializeModuleData()
@@ -176,7 +176,7 @@ MODULE_API MM::Device* CreateDevice(const char* deviceName)
    }
    else if (strcmp(deviceName, g_MagnifierDeviceName) == 0)
    {
-      // create Optovar 
+      // create Optovar
       return new DemoMagnifier();
    }
 
@@ -350,7 +350,7 @@ int CDemoCamera::Initialize()
 
    vector<string> pixelTypeValues;
    pixelTypeValues.push_back(g_PixelType_8bit);
-   pixelTypeValues.push_back(g_PixelType_16bit); 
+   pixelTypeValues.push_back(g_PixelType_16bit);
 	pixelTypeValues.push_back(g_PixelType_32bitRGB);
 	pixelTypeValues.push_back(g_PixelType_64bitRGB);
    //pixelTypeValues.push_back(::g_PixelType_32bit);
@@ -382,7 +382,7 @@ int CDemoCamera::Initialize()
 
 	CPropertyActionEx *pActX = 0;
 	// create an extended (i.e. array) properties 1 through 4
-	
+
 	for(int ij = 1; ij < 7;++ij)
 	{
       std::ostringstream os;
@@ -402,8 +402,8 @@ int CDemoCamera::Initialize()
    //pAct = new CPropertyAction(this, &CDemoCamera::OnSwitch);
    //nRet = CreateIntegerProperty("Switch", 0, false, pAct);
    //SetPropertyLimits("Switch", 8, 1004);
-	
-	
+
+
 	// scan mode
    pAct = new CPropertyAction (this, &CDemoCamera::OnScanMode);
    nRet = CreateIntegerProperty("ScanMode", 1, false, pAct);
@@ -524,7 +524,7 @@ int CDemoCamera::Shutdown()
 
 /**
 * Performs exposure and grabs a single image.
-* This function should block during the actual exposure and return immediately afterwards 
+* This function should block during the actual exposure and return immediately afterwards
 * (i.e., before readout).  This behavior is needed for proper synchronization with the shutter.
 * Required by the MM::Camera API.
 */
@@ -539,7 +539,7 @@ int CDemoCamera::SnapImage()
 
    MM::MMTime startTime = GetCurrentMMTime();
    double exp = GetExposure();
-   if (sequenceRunning_ && IsCapturing()) 
+   if (sequenceRunning_ && IsCapturing())
    {
       exp = GetSequenceExposure();
    }
@@ -552,7 +552,7 @@ int CDemoCamera::SnapImage()
       while (exp > (GetCurrentMMTime() - startTime).getMsec())
       {
          CDeviceUtils::SleepMs(1);
-      }		
+      }
    }
    else
    {
@@ -585,7 +585,7 @@ const unsigned char* CDemoCamera::GetImageBuffer()
 
    MMThreadGuard g(imgPixelsLock_);
    MM::MMTime readoutTime(readoutUs_);
-   while (readoutTime > (GetCurrentMMTime() - readoutStartTime_)) {}		
+   while (readoutTime > (GetCurrentMMTime() - readoutStartTime_)) {}
    unsigned char *pB = (unsigned char*)(img_.GetPixels());
    return pB;
 }
@@ -627,7 +627,7 @@ unsigned CDemoCamera::GetImageBytesPerPixel() const
       return 0;
 
    return img_.Depth();
-} 
+}
 
 /**
 * Returns the bit depth (dynamic range) of the pixel.
@@ -726,7 +726,7 @@ int CDemoCamera::ClearROI()
    ResizeImageBuffer();
    roiX_ = 0;
    roiY_ = 0;
-      
+
    return DEVICE_OK;
 }
 
@@ -751,9 +751,9 @@ double CDemoCamera::GetExposure() const
  * Returns the current exposure from a sequence and increases the sequence counter
  * Used for exposure sequences
  */
-double CDemoCamera::GetSequenceExposure() 
+double CDemoCamera::GetSequenceExposure()
 {
-   if (exposureSequence_.size() == 0) 
+   if (exposureSequence_.size() == 0)
       return this->GetExposure();
 
    double exposure = exposureSequence_[sequenceIndex_];
@@ -817,13 +817,13 @@ int CDemoCamera::ClearExposureSequence()
 /**
  * Adds an exposure to a list of exposures used in sequences
  */
-int CDemoCamera::AddToExposureSequence(double exposureTime_ms) 
+int CDemoCamera::AddToExposureSequence(double exposureTime_ms)
 {
    exposureSequence_.push_back(exposureTime_ms);
    return DEVICE_OK;
 }
 
-int CDemoCamera::SetAllowedBinning() 
+int CDemoCamera::SetAllowedBinning()
 {
    DemoHub* pHub = static_cast<DemoHub*>(GetParentHub());
    if (pHub && pHub->GenerateRandomError())
@@ -843,7 +843,7 @@ int CDemoCamera::SetAllowedBinning()
    } else if (binSize_ == 4 && scanMode_ == 3) {
       SetProperty(MM::g_Keyword_Binning, "2");
    }
-      
+
    LogMessage("Setting Allowed Binning settings", true);
    return SetAllowedValues(MM::g_Keyword_Binning, binValues);
 }
@@ -859,13 +859,13 @@ int CDemoCamera::StartSequenceAcquisition(double interval) {
    if (pHub && pHub->GenerateRandomError())
       return SIMULATED_ERROR;
 
-   return StartSequenceAcquisition(LONG_MAX, interval, false);            
+   return StartSequenceAcquisition(LONG_MAX, interval, false);
 }
 
-/**                                                                       
-* Stop and wait for the Sequence thread finished                                   
-*/                                                                        
-int CDemoCamera::StopSequenceAcquisition()                                     
+/**
+* Stop and wait for the Sequence thread finished
+*/
+int CDemoCamera::StopSequenceAcquisition()
 {
    if (IsCallbackRegistered())
    {
@@ -875,12 +875,12 @@ int CDemoCamera::StopSequenceAcquisition()
    }
 
    if (!thd_->IsStopped()) {
-      thd_->Stop();                                                       
-      thd_->wait();                                                       
-   }                                                                      
-                                                                          
-   return DEVICE_OK;                                                      
-} 
+      thd_->Stop();
+      thd_->wait();
+   }
+
+   return DEVICE_OK;
+}
 
 /**
 * Simple implementation of Sequence Acquisition
@@ -918,14 +918,14 @@ int CDemoCamera::InsertImage()
    MM::MMTime timeStamp = this->GetCurrentMMTime();
    char label[MM::MaxStrLength];
    this->GetLabel(label);
- 
+
    // Important:  metadata about the image are generated here:
    Metadata md;
    md.put("Camera", label);
    md.put(MM::g_Keyword_Metadata_StartTime, CDeviceUtils::ConvertToString(sequenceStartTime_.getMsec()));
    md.put(MM::g_Keyword_Elapsed_Time_ms, CDeviceUtils::ConvertToString((timeStamp - sequenceStartTime_).getMsec()));
-   md.put(MM::g_Keyword_Metadata_ROI_X, CDeviceUtils::ConvertToString( (long) roiX_)); 
-   md.put(MM::g_Keyword_Metadata_ROI_Y, CDeviceUtils::ConvertToString( (long) roiY_)); 
+   md.put(MM::g_Keyword_Metadata_ROI_X, CDeviceUtils::ConvertToString( (long) roiX_));
+   md.put(MM::g_Keyword_Metadata_ROI_Y, CDeviceUtils::ConvertToString( (long) roiY_));
 
    imageCounter_++;
 
@@ -955,7 +955,7 @@ int CDemoCamera::InsertImage()
 
 /*
  * Do actual capturing
- * Called from inside the thread  
+ * Called from inside the thread
  */
 int CDemoCamera::ThreadRun (MM::MMTime startTime)
 {
@@ -964,7 +964,7 @@ int CDemoCamera::ThreadRun (MM::MMTime startTime)
       return SIMULATED_ERROR;
 
    int ret=DEVICE_ERR;
-   
+
    // Trigger
    if (triggerDevice_.length() > 0) {
       MM::Device* triggerDev = GetDevice(triggerDevice_.c_str());
@@ -973,14 +973,14 @@ int CDemoCamera::ThreadRun (MM::MMTime startTime)
       	triggerDev->SetProperty("Trigger","+");
       }
    }
-   
+
    if (!fastImage_)
    {
       GenerateSyntheticImage(img_, GetSequenceExposure());
    }
 
    ret = InsertImage();
-     
+
 
    while (((double) (this->GetCurrentMMTime() - startTime).getMsec() / imageCounter_) < this->GetSequenceExposure())
    {
@@ -999,7 +999,7 @@ bool CDemoCamera::IsCapturing() {
 }
 
 /*
- * called from the thread function before exit 
+ * called from the thread function before exit
  */
 void CDemoCamera::OnThreadExiting() throw()
 {
@@ -1078,10 +1078,10 @@ void MySequenceThread::Resume() {
 int MySequenceThread::svc(void) throw()
 {
    int ret=DEVICE_ERR;
-   try 
+   try
    {
       do
-      {  
+      {
          ret=camera_->ThreadRun(startTime_);
       } while (DEVICE_OK == ret && !IsStopped() && imageCounter_++ < numImages_-1);
       if (IsStopped())
@@ -1171,7 +1171,7 @@ int CDemoCamera::OnBinning(MM::PropertyBase* pProp, MM::ActionType eAct)
    default:
       break;
    }
-   return ret; 
+   return ret;
 }
 
 /**
@@ -1257,7 +1257,7 @@ int CDemoCamera::OnPixelType(MM::PropertyBase* pProp, MM::ActionType eAct)
    default:
       break;
    }
-   return ret; 
+   return ret;
 }
 
 /**
@@ -1310,10 +1310,10 @@ int CDemoCamera::OnBitDepth(MM::PropertyBase* pProp, MM::ActionType eAct)
             break;
             case 32:
                bytesPerComponent = 4;
-               bitDepth_ = 32; 
+               bitDepth_ = 32;
                ret=DEVICE_OK;
             break;
-            default: 
+            default:
                // on error switch to default pixel type
 					bytesPerComponent = 1;
 
@@ -1326,7 +1326,7 @@ int CDemoCamera::OnBitDepth(MM::PropertyBase* pProp, MM::ActionType eAct)
 			GetProperty(MM::g_Keyword_PixelType, buf);
 			std::string pixelType(buf);
 			unsigned int bytesPerPixel = 1;
-			
+
 
          // automagickally change pixel type when bit depth exceeds possible value
          if (pixelType.compare(g_PixelType_8bit) == 0)
@@ -1373,7 +1373,7 @@ int CDemoCamera::OnBitDepth(MM::PropertyBase* pProp, MM::ActionType eAct)
    default:
       break;
    }
-   return ret; 
+   return ret;
 }
 /**
 * Handles "ReadoutTime" property.
@@ -1484,7 +1484,7 @@ int CDemoCamera::OnFractionOfPixelsToDropOrSaturate(MM::PropertyBase* pProp, MM:
 * Changes allowed Binning values to test whether the UI updates properly
 */
 int CDemoCamera::OnScanMode(MM::PropertyBase* pProp, MM::ActionType eAct)
-{ 
+{
    DemoHub* pHub = static_cast<DemoHub*>(GetParentHub());
    if (pHub && pHub->GenerateRandomError())
       return SIMULATED_ERROR;
@@ -1595,7 +1595,7 @@ int CDemoCamera::OnIsSequenceable(MM::PropertyBase* pProp, MM::ActionType eAct)
    std::string val = "Yes";
    if (eAct == MM::BeforeGet)
    {
-      if (!isSequenceable_) 
+      if (!isSequenceable_)
       {
          val = "No";
       }
@@ -1605,7 +1605,7 @@ int CDemoCamera::OnIsSequenceable(MM::PropertyBase* pProp, MM::ActionType eAct)
    {
       isSequenceable_ = false;
       pProp->Get(val);
-      if (val == "Yes") 
+      if (val == "Yes")
       {
          isSequenceable_ = true;
       }
@@ -1681,8 +1681,8 @@ void CDemoCamera::GenerateEmptyImage(ImgBuffer& img)
 * Generate a spatial sine wave.
 */
 void CDemoCamera::GenerateSyntheticImage(ImgBuffer& img, double exp)
-{ 
-  
+{
+
    MMThreadGuard g(imgPixelsLock_);
 
 	//std::string pixelType;
@@ -1707,7 +1707,7 @@ void CDemoCamera::GenerateSyntheticImage(ImgBuffer& img, double exp)
    static unsigned long dbgBufferSize = 0;
    static long iseq = 1;
 
- 
+
 
 	// for integer images: bitDepth_ is 8, 10, 12, 16 i.e. it is depth per component
    long maxValue = (1L << bitDepth_)-1;
@@ -1761,7 +1761,7 @@ void CDemoCamera::GenerateSyntheticImage(ImgBuffer& img, double exp)
             *(pBuf + lIndex) = (unsigned short) (g_IntensityFactor_ * min((double)maxValue, pedestal + dAmp16 * sin(dPhase_ + dLinePhase + (2.0 * cPi * k) / lPeriod)));
          }
          dLinePhase += cLinePhaseInc;
-      }         
+      }
 	   for(int snoise = 0; snoise < pixelsToSaturate; ++snoise)
 		{
 			j = (unsigned)(0.5 + (double)img.Height()*(double)rand()/(double)RAND_MAX);
@@ -1775,7 +1775,7 @@ void CDemoCamera::GenerateSyntheticImage(ImgBuffer& img, double exp)
 			k = (unsigned)(0.5 + (double)img.Width()*(double)rand()/(double)RAND_MAX);
 			*(pBuf + img.Width()*j + k) = 0;
 		}
-	
+
 	}
    else if (pixelType.compare(g_PixelType_32bit) == 0)
    {
@@ -1815,7 +1815,7 @@ void CDemoCamera::GenerateSyntheticImage(ImgBuffer& img, double exp)
 			k = (unsigned)(0.5 + (double)img.Width()*(double)rand()/(double)RAND_MAX);
 			*(pBuf + img.Width()*j + k) = 0;
       }
-	
+
 	}
 	else if (pixelType.compare(g_PixelType_32bitRGB) == 0)
 	{
@@ -1895,7 +1895,7 @@ void CDemoCamera::GenerateSyntheticImage(ImgBuffer& img, double exp)
 	{
       double pedestal = maxValue/2 * exp / 100.0 * GetBinning() * GetBinning();
       double dAmp16 = dAmp * maxValue/255.0; // scale to behave like 8-bit
-      
+
 		double maxPixelValue = (1<<(bitDepth_))-1;
       unsigned long long * pBuf = (unsigned long long*) img.GetPixelsRW();
       for (j=0; j<img.Height(); j++)
@@ -1928,10 +1928,10 @@ void CDemoCamera::TestResourceLocking(const bool recurse)
 // CDemoFilterWheel implementation
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CDemoFilterWheel::CDemoFilterWheel() : 
-numPos_(10), 
-busy_(false), 
-initialized_(false), 
+CDemoFilterWheel::CDemoFilterWheel() :
+numPos_(10),
+busy_(false),
+initialized_(false),
 changedTime_(0.0),
 position_(0)
 {
@@ -1984,7 +1984,7 @@ int CDemoFilterWheel::Initialize()
       return ret;
 
    // Set timer for the Busy signal, or we'll get a time-out the first time we check the state of the shutter, for good measure, go back 'delay' time into the past
-   changedTime_ = GetCurrentMMTime();   
+   changedTime_ = GetCurrentMMTime();
 
    // Gate Closed Position
    ret = CreateIntegerProperty(MM::g_Keyword_Closed_Position, 0, false);
@@ -2087,10 +2087,10 @@ int CDemoFilterWheel::OnState(MM::PropertyBase* pProp, MM::ActionType eAct)
 // CDemoStateDevice implementation
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CDemoStateDevice::CDemoStateDevice() : 
-numPos_(10), 
-busy_(false), 
-initialized_(false), 
+CDemoStateDevice::CDemoStateDevice() :
+numPos_(10),
+busy_(false),
+initialized_(false),
 changedTime_(0.0),
 position_(0)
 {
@@ -2150,7 +2150,7 @@ int CDemoStateDevice::Initialize()
       return ret;
 
    // Set timer for the Busy signal, or we'll get a time-out the first time we check the state of the shutter, for good measure, go back 'delay' time into the past
-   changedTime_ = GetCurrentMMTime();   
+   changedTime_ = GetCurrentMMTime();
 
    // Gate Closed Position
    ret = CreateStringProperty(MM::g_Keyword_Closed_Position, "", false);
@@ -2270,9 +2270,9 @@ int CDemoStateDevice::OnNumberOfStates(MM::PropertyBase* pProp, MM::ActionType e
 // CDemoLightPath implementation
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CDemoLightPath::CDemoLightPath() : 
-numPos_(3), 
-busy_(false), 
+CDemoLightPath::CDemoLightPath() :
+numPos_(3),
+busy_(false),
 initialized_(false)
 {
    InitializeDefaultErrorMessages();
@@ -2399,9 +2399,9 @@ int CDemoLightPath::OnState(MM::PropertyBase* pProp, MM::ActionType eAct)
 // CDemoObjectiveTurret implementation
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CDemoObjectiveTurret::CDemoObjectiveTurret() : 
-   numPos_(6), 
-   busy_(false), 
+CDemoObjectiveTurret::CDemoObjectiveTurret() :
+   numPos_(6),
+   busy_(false),
    initialized_(false),
    sequenceRunning_(false),
    sequenceMaxSize_(10)
@@ -2538,7 +2538,7 @@ int CDemoObjectiveTurret::OnState(MM::PropertyBase* pProp, MM::ActionType eAct)
       GetPositionLabel(position_, label);
       OnPropertyChanged("Label", label);
    }
-   else if (eAct == MM::IsSequenceable) 
+   else if (eAct == MM::IsSequenceable)
    {
       pProp->SetSequenceable(sequenceMaxSize_);
    }
@@ -2599,7 +2599,7 @@ int CDemoObjectiveTurret::OnTrigger(MM::PropertyBase* pProp, MM::ActionType eAct
 // CDemoStage implementation
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CDemoStage::CDemoStage() : 
+CDemoStage::CDemoStage() :
    stepSize_um_(0.025),
    pos_um_(0.0),
    busy_(false),
@@ -2692,13 +2692,13 @@ int CDemoStage::Shutdown()
    return DEVICE_OK;
 }
 
-int CDemoStage::SetPositionUm(double pos) 
+int CDemoStage::SetPositionUm(double pos)
 {
    DemoHub* pHub = static_cast<DemoHub*>(GetParentHub());
    if (pHub && pHub->GenerateRandomError())
       return SIMULATED_ERROR;
 
-   pos_um_ = pos; 
+   pos_um_ = pos;
    SetIntensityFactor(pos);
    return OnStagePositionChanged(pos_um_);
 }
@@ -2770,7 +2770,7 @@ int CDemoStage::OnSequence(MM::PropertyBase* pProp, MM::ActionType eAct)
 // CDemoXYStage implementation
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CDemoXYStage::CDemoXYStage() : 
+CDemoXYStage::CDemoXYStage() :
 CXYStageBase<CDemoXYStage>(),
 stepSize_um_(0.015),
 posX_um_(0.0),
@@ -2912,8 +2912,8 @@ int DemoShutter::Initialize()
    // state
    CPropertyAction* pAct = new CPropertyAction (this, &DemoShutter::OnState);
    ret = CreateIntegerProperty(MM::g_Keyword_State, 0, false, pAct);
-   if (ret != DEVICE_OK) 
-      return ret; 
+   if (ret != DEVICE_OK)
+      return ret;
 
    AddAllowedValue(MM::g_Keyword_State, "0"); // Closed
    AddAllowedValue(MM::g_Keyword_State, "1"); // Open
@@ -2978,7 +2978,7 @@ int DemoShutter::OnState(MM::PropertyBase* pProp, MM::ActionType eAct)
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 DemoMagnifier::DemoMagnifier () :
       position_ (0),
-      highMag_ (1.6) 
+      highMag_ (1.6)
 {
    CPropertyAction* pAct = new CPropertyAction (this, &DemoMagnifier::OnHighMag);
    CreateFloatProperty("High Position Magnification", 1.6, false, pAct, true);
@@ -3008,13 +3008,13 @@ int DemoMagnifier::Initialize()
 
    CPropertyAction* pAct = new CPropertyAction (this, &DemoMagnifier::OnPosition);
    int ret = CreateStringProperty("Position", "1x", false, pAct);
-   if (ret != DEVICE_OK) 
-      return ret; 
+   if (ret != DEVICE_OK)
+      return ret;
 
    position_ = 0;
 
-   AddAllowedValue("Position", "1x"); 
-   AddAllowedValue("Position", highMagString().c_str()); 
+   AddAllowedValue("Position", "1x");
+   AddAllowedValue("Position", highMagString().c_str());
 
    ret = UpdateStatus();
    if (ret != DEVICE_OK)
@@ -3035,7 +3035,7 @@ double DemoMagnifier::GetMagnification() {
    return highMag_;
 }
 
-int DemoMagnifier::OnPosition(MM::PropertyBase* pProp, MM::ActionType eAct) 
+int DemoMagnifier::OnPosition(MM::PropertyBase* pProp, MM::ActionType eAct)
 {
    DemoHub* pHub = static_cast<DemoHub*>(GetParentHub());
    if (pHub && pHub->GenerateRandomError())
@@ -3058,7 +3058,7 @@ int DemoMagnifier::OnPosition(MM::PropertyBase* pProp, MM::ActionType eAct)
    return DEVICE_OK;
 }
 
-int DemoMagnifier::OnHighMag(MM::PropertyBase* pProp, MM::ActionType eAct) 
+int DemoMagnifier::OnHighMag(MM::PropertyBase* pProp, MM::ActionType eAct)
 {
    if (eAct == MM::BeforeGet)
    {
@@ -3068,8 +3068,8 @@ int DemoMagnifier::OnHighMag(MM::PropertyBase* pProp, MM::ActionType eAct)
    {
       pProp->Get(highMag_);
       ClearAllowedValues("Position");
-      AddAllowedValue("Position", "1x"); 
-      AddAllowedValue("Position", highMagString().c_str()); 
+      AddAllowedValue("Position", "1x");
+      AddAllowedValue("Position", highMagString().c_str());
    }
 
    return DEVICE_OK;
@@ -3079,9 +3079,9 @@ int DemoMagnifier::OnHighMag(MM::PropertyBase* pProp, MM::ActionType eAct)
 * Demo DA device
 */
 
-DemoDA::DemoDA () : 
-volt_(0), 
-gatedVolts_(0), 
+DemoDA::DemoDA () :
+volt_(0),
+gatedVolts_(0),
 open_(true),
 sequenceRunning_(false),
 sequenceIndex_(0),
@@ -3133,24 +3133,24 @@ int DemoDA::Initialize()
    return DEVICE_OK;
 }
 
-int DemoDA::SetGateOpen(bool open) 
+int DemoDA::SetGateOpen(bool open)
 {
    DemoHub* pHub = static_cast<DemoHub*>(GetParentHub());
    if (pHub && pHub->GenerateRandomError())
       return SIMULATED_ERROR;
 
-   open_ = open; 
-   if (open_) 
-      gatedVolts_ = volt_; 
-   else 
+   open_ = open;
+   if (open_)
+      gatedVolts_ = volt_;
+   else
       gatedVolts_ = 0;
 
    return DEVICE_OK;
 }
 
-int DemoDA::GetGateOpen(bool& open) 
+int DemoDA::GetGateOpen(bool& open)
 {
-   open = open_; 
+   open = open_;
    return DEVICE_OK;
 }
 
@@ -3159,7 +3159,7 @@ int DemoDA::SetSignal(double volts) {
    if (pHub && pHub->GenerateRandomError())
       return SIMULATED_ERROR;
 
-   volt_ = volts; 
+   volt_ = volts;
    if (open_)
       gatedVolts_ = volts;
    stringstream s;
@@ -3168,17 +3168,17 @@ int DemoDA::SetSignal(double volts) {
    return DEVICE_OK;
 }
 
-int DemoDA::GetSignal(double& volts) 
+int DemoDA::GetSignal(double& volts)
 {
    DemoHub* pHub = static_cast<DemoHub*>(GetParentHub());
    if (pHub && pHub->GenerateRandomError())
       return SIMULATED_ERROR;
 
-   volts = volt_; 
+   volts = volt_;
    return DEVICE_OK;
 }
 
-int DemoDA::SendDASequence() 
+int DemoDA::SendDASequence()
 {
    DemoHub* pHub = static_cast<DemoHub*>(GetParentHub());
    if (pHub && pHub->GenerateRandomError())
@@ -3312,7 +3312,7 @@ int DemoAutoFocus::Initialize()
    if (DEVICE_OK != ret)
       return ret;
 
-   running_ = false;   
+   running_ = false;
 
    ret = UpdateStatus();
    if (ret != DEVICE_OK)
@@ -3379,13 +3379,13 @@ int TransposeProcessor::Process(unsigned char *pBuffer, unsigned int width, unsi
       return SIMULATED_ERROR;
 
    int ret = DEVICE_OK;
-   // 
+   //
    if( width != height)
       return DEVICE_NOT_SUPPORTED; // problem with tranposing non-square images is that the image buffer
    // will need to be modified by the image processor.
    if(busy_)
       return DEVICE_ERR;
- 
+
    busy_ = true;
 
    if( inPlace_)
@@ -3406,7 +3406,7 @@ int TransposeProcessor::Process(unsigned char *pBuffer, unsigned int width, unsi
       {
          TransposeSquareInPlace( (unsigned long long*)pBuffer, width);
       }
-      else 
+      else
       {
          ret = DEVICE_NOT_SUPPORTED;
       }
@@ -3473,7 +3473,7 @@ int ImageFlipY::Process(unsigned char *pBuffer, unsigned int width, unsigned int
       return DEVICE_ERR;
 
    int ret = DEVICE_OK;
- 
+
    busy_ = true;
    performanceTiming_ = MM::MMTime(0.);
    MM::MMTime  s0 = GetCurrentMMTime();
@@ -3544,7 +3544,7 @@ int ImageFlipX::Process(unsigned char *pBuffer, unsigned int width, unsigned int
       return DEVICE_ERR;
 
    int ret = DEVICE_OK;
- 
+
    busy_ = true;
    performanceTiming_ = MM::MMTime(0.);
    MM::MMTime  s0 = GetCurrentMMTime();
@@ -3610,7 +3610,7 @@ int MedianFilter::Process(unsigned char *pBuffer, unsigned int width, unsigned i
       return DEVICE_ERR;
 
    int ret = DEVICE_OK;
- 
+
    busy_ = true;
    performanceTiming_ = MM::MMTime(0.);
    MM::MMTime  s0 = GetCurrentMMTime();
@@ -3666,12 +3666,12 @@ int DemoHub::Initialize()
    CreateIntegerProperty("DivideOneByMe", this->divideOneByMe_, false, pAct);
 
   	initialized_ = true;
- 
+
 	return DEVICE_OK;
 }
 
 int DemoHub::DetectInstalledDevices()
-{  
+{
    ClearInstalledDevices();
 
    // make sure this method is called before we look for available devices
@@ -3680,7 +3680,7 @@ int DemoHub::DetectInstalledDevices()
    char hubName[MM::MaxStrLength];
    GetName(hubName); // this device name
    for (unsigned i=0; i<GetNumberOfDevices(); i++)
-   { 
+   {
       char deviceName[MM::MaxStrLength];
       bool success = GetDeviceName(i, deviceName, MM::MaxStrLength);
       if (success && (strcmp(hubName, deviceName) != 0))
@@ -3689,7 +3689,7 @@ int DemoHub::DetectInstalledDevices()
          AddInstalledDevice(pDev);
       }
    }
-   return DEVICE_OK; 
+   return DEVICE_OK;
 }
 
 MM::Device* DemoHub::CreatePeripheralDevice(const char* adapterName)
