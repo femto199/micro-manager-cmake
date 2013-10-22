@@ -17,7 +17,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMakeModules")
 
 # Required external paths
 set(3RD_PARY_PUBLIC_PATH "../3rdpartypublic" CACHE FILEPATH "Path to 3rdpartypublic folder")
-set(IJ_PATH "../ImageJ-cmake" CACHE FILEPATH "Path to ImageJ folder. Where MM will be installed")
+set(IJ_PATH "../ImageJ" CACHE FILEPATH "Path to ImageJ folder. Where MM will be installed")
 
 # Convert relative to absolute paths
 get_filename_component(3RD_PARY_PUBLIC_PATH ${3RD_PARY_PUBLIC_PATH} ABSOLUTE)
